@@ -1,4 +1,4 @@
-# Grafana Dashboards
+# Grafana
 
 <p align="left">
   <img src="https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/logo/graphana.png" alt="Grafana" width="26" />
