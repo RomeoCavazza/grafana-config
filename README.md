@@ -102,17 +102,6 @@ Rendered JSON: [`incident-correlation.json`](incident-correlation.json)
 - **Correlation context**: pressure timeline and GPU metrics to match log
   events with hardware stress.
 
-### 4. Compiled Overview
-
-The compiled view collects every panel from the library into one page for visual
-comparison and regression checks.
-
-![NixOS System Overview](https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/live/nixos-system-overview.png)
-
-Source: [`src/nixos-compiled.jsonnet`](src/nixos-compiled.jsonnet)
-
-Rendered JSON: [`nixos-compiled.json`](nixos-compiled.json)
-
 ## Panel Library
 
 The canonical panel library lives in
