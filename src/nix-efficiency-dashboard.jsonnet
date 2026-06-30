@@ -54,7 +54,7 @@ local summaryPanel =
       | ![Nix Store](https://img.shields.io/badge/Nix_Store-growth-70efe5?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | `/nix/store` | Footprint and path tracking |
       | ![Flake](https://img.shields.io/badge/Flake-freshness-b48efa?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | `flake.lock` | Input drift monitoring |
       | ![Rebuild](https://img.shields.io/badge/Rebuild-cost-f5c2e7?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | `systemd` | Build duration and outcome |
-      | ![Architecture](https://img.shields.io/badge/Architecture-Wiki-b48efa?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | [Wiki](https://github.com/RomeoCavazza/setup-os/wiki/Observability-and-Metrics) | Technical documentation mirror |
+      | ![Architecture](https://img.shields.io/badge/Architecture-Wiki-b48efa?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | [Wiki](https://github.com/RomeoCavazza/nixos-config/wiki/Observability-and-Metrics) | Technical documentation mirror |
     |||,
     0, 0, 24, summaryH
   );

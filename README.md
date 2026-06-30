@@ -1,13 +1,13 @@
 # Grafana
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/logo/graphana.png" alt="Grafana" width="26" />
-  <img src="https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/logo/loki.png" alt="Loki" width="26" />
-  <img src="https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/logo/prometheus.png" alt="Prometheus" width="26" />
+  <img src="https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/logo/graphana.png" alt="Grafana" width="26" />
+  <img src="https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/logo/loki.png" alt="Loki" width="26" />
+  <img src="https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/logo/prometheus.png" alt="Prometheus" width="26" />
 </p>
 
 This repository contains the Grafana dashboard sources extracted from
-[`setup-os`](https://github.com/RomeoCavazza/setup-os).
+[`nixos-config`](https://github.com/RomeoCavazza/nixos-config).
 
 The stack is intentionally small: Prometheus and Node Exporter handle metrics,
 Loki and Promtail handle logs, and Grafana ties the signals together.
@@ -31,7 +31,7 @@ system: uptime, PSI, temperature, store pressure, incidents, and desktop state.
 
 The primary view for overall system health and real-time monitoring.
 
-![NixOS Metrics Live](https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/live/live-dashboard.png)
+![NixOS Metrics Live](https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/live/live-dashboard.png)
 
 Files: [`src/nix-dashboard.jsonnet`](src/nix-dashboard.jsonnet) ->
 [`nixos-metrics.json`](nixos-metrics.json)
@@ -50,7 +50,7 @@ Files: [`src/nix-dashboard.jsonnet`](src/nix-dashboard.jsonnet) ->
 
 Tracking drift, generation debt, and the cost of system rebuilds.
 
-![Nix Efficiency](https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/live/nix-efficiency.png)
+![Nix Efficiency](https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/live/nix-efficiency.png)
 
 Files: [`src/nix-efficiency-dashboard.jsonnet`](src/nix-efficiency-dashboard.jsonnet)
 -> [`nix-efficiency.json`](nix-efficiency.json)
@@ -67,7 +67,7 @@ Files: [`src/nix-efficiency-dashboard.jsonnet`](src/nix-efficiency-dashboard.jso
 Log correlation matched with hardware risk signals for fast root-cause
 analysis.
 
-![Incident Dashboard](https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/live/incident-dashboard.png)
+![Incident Dashboard](https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/live/incident-dashboard.png)
 
 Files: [`src/incident-correlation-dashboard.jsonnet`](src/incident-correlation-dashboard.jsonnet)
 -> [`incident-correlation.json`](incident-correlation.json)
@@ -86,7 +86,7 @@ Files: [`src/incident-correlation-dashboard.jsonnet`](src/incident-correlation-d
 Prometheus is the verification layer. If a dashboard panel looks wrong, this is
 where raw `nix_*` or `node_*` series are checked first.
 
-![Prometheus query view](https://raw.githubusercontent.com/RomeoCavazza/setup-os/refs/heads/main/docs/assets/prometheus.png)
+![Prometheus query view](https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/prometheus.png)
 
 ## Maintenance
 
@@ -110,17 +110,17 @@ Promtail adds a `component` label for targeted LogQL queries:
 
 ### Snapshots
 
-[`grafana-snapshot-sync.timer`](https://github.com/RomeoCavazza/setup-os/blob/main/config/bin/grafana-snapshot-sync)
+[`grafana-snapshot-sync.timer`](https://github.com/RomeoCavazza/nixos-config/blob/main/config/bin/grafana-snapshot-sync)
 captures dashboard PNGs every 6 hours from Grafana on port `3001`. PNGs with a
 meaningful visual delta are pushed to
-[`docs/assets/live/`](https://github.com/RomeoCavazza/setup-os/tree/main/docs/assets/live)
-in `setup-os`.
+[`docs/assets/live/`](https://github.com/RomeoCavazza/nixos-config/tree/main/docs/assets/live)
+in `nixos-config`.
 
 ### Regenerate
 
 The NixOS services and provisioning live in
-[`modules/observability.nix`](https://github.com/RomeoCavazza/setup-os/blob/main/modules/observability.nix)
-inside `setup-os`. Regenerate rendered JSON from a `setup-os` checkout that
+[`modules/observability.nix`](https://github.com/RomeoCavazza/nixos-config/blob/main/modules/observability.nix)
+inside `nixos-config`. Regenerate rendered JSON from a `nixos-config` checkout that
 mounts this repo at `config/grafana`:
 
 ```sh

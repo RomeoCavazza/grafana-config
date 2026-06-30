@@ -224,7 +224,7 @@ local systemSummary =
       | ![Promtail](https://img.shields.io/badge/Promtail-journald-f6fbff?style=flat-square&logo=grafana&logoColor=white&labelColor=101216) | `systemd service` | Journald scraping and labeling |
       | ![Architecture](https://img.shields.io/badge/Architecture-Wiki-b48efa?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | `Wiki` | Dashboards provisioned via Jsonnet. |
 
-      [GitHub](https://github.com/RomeoCavazza/setup-os) · [Observability wiki](https://github.com/RomeoCavazza/setup-os/wiki/Observability-and-Metrics)
+      [GitHub](https://github.com/RomeoCavazza/nixos-config) · [Observability wiki](https://github.com/RomeoCavazza/nixos-config/wiki/Observability-and-Metrics)
 |||,
     0, 0, railW, summaryH
   );

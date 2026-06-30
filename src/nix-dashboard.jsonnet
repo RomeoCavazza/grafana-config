@@ -55,7 +55,7 @@ local summaryPanel =
       | ![Prometheus](https://img.shields.io/badge/Prometheus-metrics-b48efa?style=flat-square&logo=prometheus&logoColor=white&labelColor=101216) | `localhost:9090` | Metrics TSDB and query engine |
       | ![Node Exporter](https://img.shields.io/badge/Node_Exporter-host-70efe5?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | `localhost:9100` | Host metrics plus textfile collector |
       | ![NVIDIA](https://img.shields.io/badge/NVIDIA-GPU-76b900?style=flat-square&logo=nvidia&logoColor=white&labelColor=101216) | `nvidia-smi` | VRAM and Power telemetry |
-      | ![Architecture](https://img.shields.io/badge/Architecture-Wiki-b48efa?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | [Wiki](https://github.com/RomeoCavazza/setup-os/wiki/Observability-and-Metrics) | Technical documentation mirror |
+      | ![Architecture](https://img.shields.io/badge/Architecture-Wiki-b48efa?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | [Wiki](https://github.com/RomeoCavazza/nixos-config/wiki/Observability-and-Metrics) | Technical documentation mirror |
     |||,
     0, 0, 24, summaryH
   );

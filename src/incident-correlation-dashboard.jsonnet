@@ -54,7 +54,7 @@ local summaryPanel =
       | ![Loki](https://img.shields.io/badge/Loki-logs-8df4ec?style=flat-square&logo=grafana&logoColor=white&labelColor=101216) | `localhost:3100` | Centralized log ingestion |
       | ![Promtail](https://img.shields.io/badge/Promtail-journal-f6fbff?style=flat-square&logo=grafana&logoColor=white&labelColor=101216) | `journald` | Log labeling and shipping |
       | ![PSI](https://img.shields.io/badge/PSI-pressure-b48efa?style=flat-square&logo=prometheus&logoColor=white&labelColor=101216) | `/proc/pressure` | Kernel stall correlation |
-      | ![Architecture](https://img.shields.io/badge/Architecture-Wiki-b48efa?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | [Wiki](https://github.com/RomeoCavazza/setup-os/wiki/Observability-and-Metrics) | Technical documentation mirror |
+      | ![Architecture](https://img.shields.io/badge/Architecture-Wiki-b48efa?style=flat-square&logo=nixos&logoColor=white&labelColor=101216) | [Wiki](https://github.com/RomeoCavazza/nixos-config/wiki/Observability-and-Metrics) | Technical documentation mirror |
     |||,
     0, 0, 24, summaryH
   );
