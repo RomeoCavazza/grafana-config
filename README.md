@@ -1,5 +1,7 @@
 # Grafana
 
+[![CI](https://github.com/RomeoCavazza/grafana-config/actions/workflows/ci.yml/badge.svg)](https://github.com/RomeoCavazza/grafana-config/actions/workflows/ci.yml)
+
 <p align="left">
   <img src="https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/logo/graphana.png" alt="Grafana" width="26" />
   <img src="https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/logo/loki.png" alt="Loki" width="26" />

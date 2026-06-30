@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  dashboards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+
+      - name: Verify generated dashboards
+        run: |
+          nix shell nixpkgs#diffutils nixpkgs#jq nixpkgs#jsonnet -c bash -euo pipefail <<'EOF'
+          tmp_dir="$(mktemp -d)"
+          trap 'rm -rf "$tmp_dir"' EXIT
+
+          declare -A mapping=(
+            ["nix-dashboard"]="nixos-metrics"
+            ["nix-efficiency-dashboard"]="nix-efficiency"
+            ["incident-correlation-dashboard"]="incident-correlation"
+            ["nixos-compiled"]="nixos-compiled"
+          )
+
+          for source in "${!mapping[@]}"; do
+            target="${mapping[$source]}"
+            jsonnet "src/$source.jsonnet" | jq . > "$tmp_dir/$target.json"
+            diff -u "$target.json" "$tmp_dir/$target.json"
+          done
+          EOF
