@@ -1,14 +1,6 @@
-// Grafonnet-style helpers, tuned to the Hyprland / Waybar / Rofi / Foot
-// seaglass desktop. Graph colors stay in the wallpaper's cyan -> blue ->
-// violet range; semantic states use brightness and hue shift instead of the
-// default green / yellow / orange / red traffic-light palette.
-
-// --------------------------------------------------------------------------
-// PALETTE (Catppuccin Mocha, Waybar-aligned)
-// --------------------------------------------------------------------------
+// --- Palette ---
 
 local mocha = {
-  // backgrounds (for thresholds on dark bg, rarely used as foreground)
   base: '#1e1e2e',
   mantle: '#181825',
   crust: '#11111b',
@@ -16,23 +8,20 @@ local mocha = {
   surface1: '#45475a',
   surface2: '#585b70',
 
-  // text
   text: '#cdd6f4',
   subtext1: '#bac2de',
   subtext0: '#a6adc8',
   overlay2: '#9399b2',
 
-  // vivid accents
-  blue: '#89b4fa',      // Waybar primary — used for first-class series
+  blue: '#89b4fa',
   sapphire: '#74c7ec',
   sky: '#89dceb',
-  teal: '#94e2d5',      // Waybar accent
+  teal: '#94e2d5',
   lavender: '#b4befe',
   mauve: '#cba6f7',
   pink: '#f5c2e7',
   flamingo: '#f2cdcd',
 
-  // semantic
   green: '#a6e3a1',
   yellow: '#f9e2af',
   peach: '#fab387',
@@ -41,7 +30,6 @@ local mocha = {
 };
 
 local seaglassTheme = mocha + {
-  // background family sampled from docs/assets/background.png
   base: '#050513',
   mantle: '#0d0f2e',
   crust: '#050513',
@@ -49,13 +37,11 @@ local seaglassTheme = mocha + {
   surface1: '#202b60',
   surface2: '#2b529e',
 
-  // text
   text: '#f6fbff',
   subtext1: '#d8f7fb',
   subtext0: '#96cbd2',
   overlay2: '#73d9f7',
 
-  // accent family shared with rofi/waybar/hypr/foot
   teal: '#94e2d5',
   sky: '#73d9f7',
   sapphire: '#2f9de5',
@@ -65,7 +51,6 @@ local seaglassTheme = mocha + {
   lavender: '#b48efa',
   mauve: '#a56c89',
 
-  // cold semantic aliases, kept under familiar names for existing dashboards
   green: '#94e2d5',
   yellow: '#73d9f7',
   peach: '#b48efa',
@@ -74,16 +59,14 @@ local seaglassTheme = mocha + {
 };
 
 local colors = {
-  // Seaglass / Hyprchroma primary accents
   seaglass: {
-    primary: '#94e2d5',    // Glowing Teal
-    secondary: '#73d9f7',  // Sky Blue
-    tertiary: '#5d9ae1',   // Sapphire Blue
-    quaternary: '#b48efa', // Violet
-    glow: '#8df4ec',       // Neon Cyan
+    primary: '#94e2d5',
+    secondary: '#73d9f7',
+    tertiary: '#5d9ae1',
+    quaternary: '#b48efa',
+    glow: '#8df4ec',
   },
 
-  // semantic
   ok: seaglassTheme.teal,
   warn: seaglassTheme.sky,
   hot: seaglassTheme.lavender,
@@ -91,7 +74,6 @@ local colors = {
   info: seaglassTheme.blue,
   accent: seaglassTheme.teal,
 
-  // series palette: cold neon spread from the wallpaper, without traffic-light warmth.
   series: [
     seaglassTheme.teal,
     seaglassTheme.blue,
@@ -103,14 +85,11 @@ local colors = {
     '#6aa6ff',
   ],
 
-  // full palette exposed so dashboards can reach for any Mocha tone
   mocha: mocha,
   theme: seaglassTheme,
 };
 
-// --------------------------------------------------------------------------
-// COLOR MATH — hex interpolation for heat gradients (101 steps like Forecast)
-// --------------------------------------------------------------------------
+// --- Color Math ---
 
 local strip = function(h) if std.startsWith(h, '#') then std.substr(h, 1, 6) else h;
 local hexToRgb = function(h)
@@ -146,8 +125,7 @@ local lerpColor = function(h1, h2, t)
     else if ds == 'Prometheus' then $.prometheusDatasource
     else ds,
 
-  // High-End Hijack Utilities
-  // Patch a specific panel by ID in a hijacked dashboard
+  // --- Dashboard Patches ---
   patchPanel(dashboard, panelId, overlay)::
     dashboard {
       panels: [
@@ -156,7 +134,6 @@ local lerpColor = function(h1, h2, t)
       ],
     },
 
-  // Map arbitrary template datasources to our local ones
   fixDatasources(dashboard)::
     dashboard {
       panels: [
@@ -171,7 +148,6 @@ local lerpColor = function(h1, h2, t)
       ],
     },
 
-  // Whitelist: only keep specific panel IDs and fix their datasources
   whitelist(dashboard, allowedIds)::
     self.fixDatasources(dashboard {
       panels: [
@@ -180,7 +156,6 @@ local lerpColor = function(h1, h2, t)
       ],
     }),
 
-  // Target override helper
   promTarget(expr, legend='', refId='A'):: {
     datasource: $.prometheusDatasource,
     expr: expr,
@@ -188,12 +163,9 @@ local lerpColor = function(h1, h2, t)
     refId: refId,
   },
 
-  // Public color helpers
   hexLerp(a, b, t):: lerpColor(a, b, t),
 
-  // ---------------------------------------------------------------------
-  // THRESHOLDS
-  // ---------------------------------------------------------------------
+  // --- Thresholds ---
 
   fixedColor(color):: {
     mode: 'fixed',
@@ -213,7 +185,6 @@ local lerpColor = function(h1, h2, t)
 
   greenYellowRedHex(warn, crit):: $.greenYellowRed(warn, crit),
 
-  // 5-color triad (ok / watch / warn / hot / crit) — more shades than the 3-step classic
   fiveStep(s1, s2, s3, s4):: $.thresholds([
     { color: colors.ok, value: null },
     { color: colors.accent, value: s1 },
@@ -222,22 +193,18 @@ local lerpColor = function(h1, h2, t)
     { color: colors.crit, value: s4 },
   ]),
 
-  // Seaglass monochromatic thresholds (for a calm, one-piece look)
   seaglassScale(warn, crit):: $.thresholds([
     { color: colors.seaglass.primary, value: null },
     { color: colors.seaglass.tertiary, value: warn },
     { color: colors.crit, value: crit },
   ]),
 
-  // BarGauge specific Seaglass scale (strictly cold)
   seaglassBarScale(warn, crit):: $.thresholds([
     { color: colors.seaglass.glow, value: null },
     { color: colors.seaglass.quaternary, value: warn },
     { color: colors.crit, value: crit },
   ]),
 
-  // Continuous heat gradient — N threshold steps interpolated through 3 color stops.
-  // Mirrors Forecast's 101-step temperature palette.
   heatGradient(startHex, midHex, endHex, minValue, maxValue, steps=101)::
     $.thresholds(
       std.mapWithIndex(
@@ -250,13 +217,10 @@ local lerpColor = function(h1, h2, t)
       )
     ),
 
-  // Cold pressure gradient: background blue -> electric cyan -> violet.
   mochaHeat(minValue, maxValue, steps=101)::
     $.heatGradient(seaglassTheme.blue, seaglassTheme.teal, seaglassTheme.lavender, minValue, maxValue, steps),
 
-  // ---------------------------------------------------------------------
-  // MAPPINGS
-  // ---------------------------------------------------------------------
+  // --- Mappings ---
 
   noDataMapping:: {
     type: 'special',
@@ -282,9 +246,7 @@ local lerpColor = function(h1, h2, t)
     },
   },
 
-  // ---------------------------------------------------------------------
-  // TARGETS
-  // ---------------------------------------------------------------------
+  // --- Targets ---
 
   prometheusTarget(expr, legendFormat, refId='A', instant=false, format=null):: {
     expr: expr,
@@ -296,18 +258,14 @@ local lerpColor = function(h1, h2, t)
   + (if instant then { instant: true, range: false } else { instant: false, range: true })
   + (if format == null then {} else { format: format }),
 
-  // Derivative of a gauge over a range (units per second).
-  // Example: nix_store_bytes growth rate = deriv(nix_store_bytes[$window])
   derivTarget(metric, window, legend, refId='A'):: $.prometheusTarget(
     'deriv(' + metric + '[' + window + '])', legend, refId
   ),
 
-  // Quantile-over-time of a gauge (for "p95 pressure over the last window").
   quantileOverTimeTarget(q, metric, window, legend, refId='A'):: $.prometheusTarget(
     'quantile_over_time(' + std.toString(q) + ', ' + metric + '[' + window + '])', legend, refId
   ),
 
-  // Average-over-time (useful for "rebuild success rate over window").
   avgOverTimeTarget(metric, window, legend, refId='A'):: $.prometheusTarget(
     'avg_over_time(' + metric + '[' + window + '])', legend, refId
   ),
@@ -318,7 +276,6 @@ local lerpColor = function(h1, h2, t)
     datasource: $.lokiDatasource,
   },
 
-  // Error-rate from a Loki log stream: count matches of a regex per window.
   lokiRateTarget(stream, pattern, window, legend, refId='A'):: {
     expr: 'sum(count_over_time(' + stream + ' |~ "' + pattern + '" [' + window + ']))',
     legendFormat: legend,
@@ -327,9 +284,7 @@ local lerpColor = function(h1, h2, t)
     queryType: 'range',
   },
 
-  // ---------------------------------------------------------------------
-  // VARIABLES & ANNOTATIONS
-  // ---------------------------------------------------------------------
+  // --- Variables & Annotations ---
 
   intervalVar(name, label, options, default):: {
     name: name,
@@ -388,9 +343,7 @@ local lerpColor = function(h1, h2, t)
     hide: false,
   },
 
-  // ---------------------------------------------------------------------
-  // OVERRIDES (per-series / per-column styling — the "pro" trick)
-  // ---------------------------------------------------------------------
+  // --- Overrides ---
 
   overrideByName(name, properties):: {
     matcher: { id: 'byName', options: name },
@@ -402,7 +355,7 @@ local lerpColor = function(h1, h2, t)
     properties: properties,
   },
 
-  // Common property shorthand
+  // --- Properties ---
   propColor(color)::          { id: 'color', value: { mode: 'fixed', fixedColor: color } },
   propUnit(unit)::            { id: 'unit', value: unit },
   propLineWidth(w)::          { id: 'custom.lineWidth', value: w },
@@ -417,7 +370,6 @@ local lerpColor = function(h1, h2, t)
   propShowPoints(mode)::      { id: 'custom.showPoints', value: mode },
   propPointSize(s)::          { id: 'custom.pointSize', value: s },
 
-  // Legacy helper retained for older call sites.
   overrideUnitByName(name, unit, axisPlacement=null, axisLabel=null, color=null,
                      fillOpacity=null, gradientMode=null, drawStyle=null,
                      lineWidth=null)::
@@ -432,9 +384,7 @@ local lerpColor = function(h1, h2, t)
       + (if lineWidth == null then [] else [{ id: 'custom.lineWidth', value: lineWidth }])
     ),
 
-  // ---------------------------------------------------------------------
-  // DASHBOARD SHELL
-  // ---------------------------------------------------------------------
+  // --- Dashboard Shell ---
 
   dashboard(title, uid, refresh, description, variables=[], annotations=[]):: {
     title: title,
@@ -468,9 +418,7 @@ local lerpColor = function(h1, h2, t)
     panels: [],
   },
 
-  // ---------------------------------------------------------------------
-  // PANELS
-  // ---------------------------------------------------------------------
+  // --- Panels ---
 
   textPanel(id, title, content, x, y, w, h=2):: {
     id: id,

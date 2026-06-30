@@ -1,8 +1,4 @@
-// aquamarine.scss - optional Grafana CSS experiment.
-//
-// This file is intentionally not injected into Grafana by Nginx. Dashboard
-// colors live in Jsonnet fieldConfig/overrides so graphs stay aligned with the
-// Hyprland / Waybar / Foot / Wal palette without modifying the HTML shell.
+// --- Grafana CSS Preview ---
 
 $m-blue:   #5d9ae1;
 $m-teal:   #94e2d5;
