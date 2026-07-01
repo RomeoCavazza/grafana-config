@@ -1,9 +1,9 @@
 # Grafana
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/logo/graphana.png" alt="Grafana" width="26" />
-  <img src="https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/logo/loki.png" alt="Loki" width="26" />
-  <img src="https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/logo/prometheus.png" alt="Prometheus" width="26" />
+  <img src="https://raw.githubusercontent.com/wiki/RomeoCavazza/nixos-config/images/nixos-config/docs/assets/logo/graphana.png" alt="Grafana" width="26" />
+  <img src="https://raw.githubusercontent.com/wiki/RomeoCavazza/nixos-config/images/nixos-config/docs/assets/logo/loki.png" alt="Loki" width="26" />
+  <img src="https://raw.githubusercontent.com/wiki/RomeoCavazza/nixos-config/images/nixos-config/docs/assets/logo/prometheus.png" alt="Prometheus" width="26" />
   <a href="https://github.com/RomeoCavazza/grafana-config/actions/workflows/ci.yml"><img src="https://github.com/RomeoCavazza/grafana-config/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
 </p>
 
@@ -87,7 +87,7 @@ Files: [`src/incident-correlation-dashboard.jsonnet`](src/incident-correlation-d
 Prometheus is the verification layer. If a dashboard panel looks wrong, this is
 where raw `nix_*` or `node_*` series are checked first.
 
-![Prometheus query view](https://raw.githubusercontent.com/RomeoCavazza/nixos-config/refs/heads/main/docs/assets/prometheus.png)
+![Prometheus query view](https://raw.githubusercontent.com/wiki/RomeoCavazza/nixos-config/images/nixos-config/docs/assets/prometheus.png)
 
 ## Maintenance
 
