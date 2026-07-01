@@ -1,6 +1,16 @@
 local g = import 'lib/dashboard.libsonnet';
 local c = g.colors.theme;
 local palette = g.colors.series;
+local echartsTheme = {
+  palette: palette,
+  text: c.text,
+  muted: c.subtext0,
+  grid: c.surface1,
+  base: c.base,
+  surface: c.surface0,
+};
+local jsString(value) = "'" + value + "'";
+local jsArray(values) = '[' + std.join(', ', std.map(jsString, values)) + ']';
 
 local railW = 5;
 local graphX = railW;
@@ -124,13 +134,14 @@ local counterStack(panels, idOffset, yStart) =
     panels
   );
 
-local echartsPrelude = |||
-  const palette = ['#94e2d5', '#5d9ae1', '#b48efa', '#f5c2e7', '#73d9f7', '#a56c89', '#8df4ec', '#6aa6ff'];
-  const text = '#f6fbff';
-  const muted = '#96cbd2';
-  const grid = '#202b60';
-  const base = '#050513';
-  const surface = '#0e184a';
+local echartsPrelude =
+  'const palette = ' + jsArray(echartsTheme.palette) + ';\n' +
+  'const text = ' + jsString(echartsTheme.text) + ';\n' +
+  'const muted = ' + jsString(echartsTheme.muted) + ';\n' +
+  'const grid = ' + jsString(echartsTheme.grid) + ';\n' +
+  'const base = ' + jsString(echartsTheme.base) + ';\n' +
+  'const surface = ' + jsString(echartsTheme.surface) + ';\n' +
+  |||
   const bulls = palette[0];
   const bears = palette[3];
   const secondary = palette[4];
